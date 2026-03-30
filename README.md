@@ -1,5 +1,5 @@
 # IWC SC70: Cetacean culture
-Used to search reports from the IWC SC and IWC CC for key terms relevant to cetacean culture
+We searched IWC Scientific Committe reports and IWC Conservation Committee reports for key terms relevant to cetacean culture
 
 ## About the scripts
 Find Keywords (1 col): for files with one-column format (2019-2024) 
