@@ -9,9 +9,9 @@ library(stringr)
 # folder where PDFs are housed
 pdf_dir <- "FILE PATH HERE"
 
-# -----------------------------
+# ============================== #
 # 1. KEYWORD LIST
-# -----------------------------
+# ============================== #
 
 # list of keywords we want to be found
 # with boundaries for words that have exclusions
@@ -40,9 +40,9 @@ keywords_list <- c(
   "sponging", "conching", "behaviour diversity", "behavior diversity", "behavioural diversity", 
   "behavioral diversity", "observational learning", "cultural diffusion")
 
-# -----------------------------
+# ============================== #
 # 2. EXCLUSION PHRASES
-# -----------------------------
+# ============================== #
 
 # these are the phrases we want to exclude from our keyword search
 exclusion_phrases <- c(
@@ -56,9 +56,9 @@ exclusion_phrases <- c(
   "aquaculture",
   "agriculture")
 
-# -----------------------------
+# ============================== #
 # 3. SEARCH PDFs
-# -----------------------------
+# ============================== #
 
 # results from our keyword search
 search_results <- keyword_directory(
@@ -68,9 +68,9 @@ search_results <- keyword_directory(
   ignore_case = TRUE,
   convert_sentence = TRUE)
 
-# -----------------------------
+# ============================== #
 # 4. REMOVE EXCLUDED PHRASES
-# -----------------------------
+# ============================== #
 
 # Combine exclusions into one expression using | for 'or'
 exclusion_pattern <- str_c(exclusion_phrases, collapse = "|")
@@ -85,8 +85,8 @@ search_results <- search_results %>%
 # Convert everything to character
 search_results[] <- lapply(search_results, as.character)
 
-# -----------------------------
+# ============================== #
 # 5. EXPORT
-# -----------------------------
+# ============================== #
 write.csv(
   search_results, "FILE PATH")
