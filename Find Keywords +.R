@@ -7,11 +7,7 @@ library(dplyr)
 library(stringr)
 
 # folder where PDFs are housed
-pdf_dir <- "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\New Folder"
-pdf_dir <- "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\Papers"
-
-pdf_dir <- "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\test"
-
+pdf_dir <- "FILE PATH HERE"
 
 # -----------------------------
 # 1. KEYWORD LIST
@@ -36,14 +32,13 @@ keywords_list <- c(
   # Word boundary for "knowledge"
   "\\bknowledge\\b",
   
-  "knowledgable",
-  "knowledgable individual","leadership","transmission","historic range",
+  "knowledgeable",
+  "knowledgeable individual","leadership","transmission","historic range",
   "behaviour","behavior","behavioural change","behavioral change",
   "recovery","geographic variation","foraging tradition",
   "vocal", "communication", "maternally directed", "tool use", "sponge", "sponger",
   "sponging", "conching", "behaviour diversity", "behavior diversity", "behavioural diversity", 
-  "behavioral diversity", "observational learning"
-)
+  "behavioral diversity", "observational learning", "cultural diffusion")
 
 # -----------------------------
 # 2. EXCLUSION PHRASES
@@ -59,8 +54,7 @@ exclusion_phrases <- c(
   
   # Culture exclusions
   "aquaculture",
-  "agriculture"
-)
+  "agriculture")
 
 # -----------------------------
 # 3. SEARCH PDFs
@@ -72,8 +66,7 @@ search_results <- keyword_directory(
   keyword = keywords_list,
   full_names = TRUE,
   ignore_case = TRUE,
-  convert_sentence = TRUE
-)
+  convert_sentence = TRUE)
 
 # -----------------------------
 # 4. REMOVE EXCLUDED PHRASES
@@ -96,20 +89,4 @@ search_results[] <- lapply(search_results, as.character)
 # 5. EXPORT
 # -----------------------------
 write.csv(
-  search_results,
-  "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\Output\\Papers2024.csv",
-  row.names = FALSE
-)
-
-nrow(search_results)
-
-search_results_unique <- unique(search_results)
-
-write.csv(
-  search_results_unique,
-  "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\Output\\Papers2024_nodups.csv",
-  row.names = FALSE
-)
-
-nrow(search_results_unique)
-
+  search_results, "FILE PATH")
