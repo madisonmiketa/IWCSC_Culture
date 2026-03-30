@@ -9,7 +9,7 @@ library(purrr)
 library(tidyr)
 
 # remove front pages for 2 col docs
-pdf_dir <- "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\import"
+pdf_dir <- "FILE PATH"
 
 # -----------------------------
 # 1. KEYWORDS
@@ -81,11 +81,12 @@ files <- list.files(pdf_dir, pattern="\\.pdf$", full.names=TRUE)
 
 # sentences_df <- map_df(files, extract_column_sentences)
 
-# print file name - helps see where having trouble reading pdf
+# print file name
 sentences_df <- map_df(files, function(f) {
   print(f)
   extract_column_sentences(f)})
 View(sentences_df)
+
 # -----------------------------
 # 5. SEARCH SENTENCES
 # -----------------------------
@@ -102,11 +103,4 @@ search_results <- sentences_df %>%
 # -----------------------------
 # 6. EXPORT
 # -----------------------------
-write.csv(search_results, "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\IWC culture project (2026)\\Output\\Output-Report-1986.1997.csv", row.names = FALSE)
-
-search_results_unique <- unique(search_results)
-
-write.csv(search_results_unique, "C:\\Users\\mmiketa\\OneDrive - The Humane Society of the United States\\Desktop1\\IWC culture project (2026)\\Output\\Output-Report-1986.1997_nodups.csv", row.names = FALSE)
-
-nrow(search_results)
-nrow(search_results_unique)
+write.csv(search_results, "FILE PATH")
