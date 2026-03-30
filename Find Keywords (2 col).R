@@ -11,9 +11,9 @@ library(tidyr)
 # remove front pages for 2 col docs
 pdf_dir <- "FILE PATH"
 
-# -----------------------------
+# ============================== #
 # 1. KEYWORDS
-# -----------------------------
+# ============================== #
 keywords_list <- c(
   "social learning","socially learned",
   "\\bculture\\b",
@@ -33,9 +33,9 @@ keywords_list <- c(
   "sponging","conching","behaviour diversity","behavior diversity",
   "behavioural diversity","behavioral diversity","observational learning", "cultural diffusion")
 
-# -----------------------------
+# ============================== #
 # 2. EXCLUSIONS
-# -----------------------------
+# ============================== #
 exclusion_phrases <- c(
   "knowledge gap","knowledge gaps",
   "acknowledge","current knowledge",
@@ -44,13 +44,15 @@ exclusion_phrases <- c(
 keyword_pattern <- str_c(keywords_list, collapse="|")
 exclusion_pattern <- str_c(exclusion_phrases, collapse="|")
 
-# -----------------------------
+# ============================== #
 # 3. COLUMN-AWARE TEXT EXTRACTION
-# -----------------------------
+# ============================== #
 extract_column_sentences <- function(file){
   pages <- pdf_data(file)
   map_df(seq_along(pages), function(p){
     df <- pages[[p]]
+    # skip blank pages
+    if (nrow(df) == 0) return(NULL)
     mid_x <- median(df$x)
     df <- df %>%
       mutate(column = ifelse(x < mid_x, "left", "right"))
@@ -74,9 +76,9 @@ extract_column_sentences <- function(file){
         file = basename(file),
         page = p)})}
 
-# -----------------------------
+# ============================== #
 # 4. READ PDFs
-# -----------------------------
+# ============================== #
 files <- list.files(pdf_dir, pattern="\\.pdf$", full.names=TRUE)
 
 # sentences_df <- map_df(files, extract_column_sentences)
@@ -87,9 +89,9 @@ sentences_df <- map_df(files, function(f) {
   extract_column_sentences(f)})
 View(sentences_df)
 
-# -----------------------------
+# ============================== #
 # 5. SEARCH SENTENCES
-# -----------------------------
+# ============================== #
 search_results <- sentences_df %>%
   filter(str_detect(sentence, regex(keyword_pattern, ignore_case = TRUE))) %>%
   filter(!str_detect(sentence, regex(exclusion_pattern, ignore_case = TRUE))) %>%
@@ -100,7 +102,7 @@ search_results <- sentences_df %>%
     keywords_found = sapply(keywords_found, function(x) paste(unique(x), collapse = "; "))) %>%
   select(file, page, column, sentence, keywords_found)
 
-# -----------------------------
+# ============================== #
 # 6. EXPORT
-# -----------------------------
+# ============================== #
 write.csv(search_results, "FILE PATH")
